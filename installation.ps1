@@ -1,5 +1,3 @@
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));
-choco install 7zip.install curl -y; RefreshEnv;
 mkdir $env:tmp/jdk;
 cd $env:tmp/jdk;
 $version = curl -s https://api.adoptium.net/v3/info/available_releases | findstr.exe "most_recent_feature_release" | cut -c 36-37;
@@ -11,9 +9,6 @@ sz x "jdk.zip" -r;
 rm "jdk.zip";
 $name = Get-ChildItem . | Select-Object -ExpandProperty Name;
 mv $name "C:\jdk\";
-rmdir $env:tmp/jdk;
 setx -m JAVA_HOME "C:\jdk"; RefreshEnv;
-$env:Path += ";%PATH%;%JAVA_HOME%\bin"; RefreshEnv;
-java --version;
-pause;
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;%JAVA_HOME%\bin", "Machine"); RefreshEnv;
 exit;

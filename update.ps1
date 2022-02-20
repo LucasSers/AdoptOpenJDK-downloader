@@ -1,0 +1,14 @@
+rmdir $env:temp/jdk;
+rmdir C:\jdk;
+mkdir $env:tmp/jdk;
+cd $env:tmp/jdk;
+$version = curl -s https://api.adoptium.net/v3/info/available_releases | findstr.exe "most_recent_feature_release" | cut -c 36-37;
+$first = "https://api.adoptium.net/v3/binary/latest/";
+$second = "/ga/windows/x64/jdk/hotspot/normal/eclipse?project=jdk";
+curl -L -0 $first$version$second -o "jdk.zip";
+set-alias sz "$env:ProgramFiles\7-Zip\7z.exe";
+sz x "jdk.zip" -r;
+rm "jdk.zip";
+$name = Get-ChildItem . | Select-Object -ExpandProperty Name;
+mv $name "C:\jdk\";
+exit;
