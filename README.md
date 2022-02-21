@@ -61,4 +61,4 @@ Use `java --version` to check for errors if any.
 
 -   Download the latest release.
 -   Configures the environment variables.
--   Updates the file with a more recent version if there is one.
+-   Updates the folder with a more recent version if there is one.
