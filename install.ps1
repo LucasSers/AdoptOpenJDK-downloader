@@ -10,5 +10,5 @@ rm "jdk.zip";
 $name = Get-ChildItem . | Select-Object -ExpandProperty Name;
 mv $name "C:\jdk\";
 setx -m JAVA_HOME "C:\jdk"; RefreshEnv;
-[Environment]::SetEnvironmentVariable("Path", "$env:Path;%JAVA_HOME%\bin", "Machine"); RefreshEnv;
+[Environment]::SetEnvironmentVariable("Path", "%JAVA_HOME%\bin;$env:Path", "Machine"); RefreshEnv;
 exit;
